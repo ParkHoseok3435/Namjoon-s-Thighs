@@ -101,8 +101,8 @@ class Quiz:
     self.rb4 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][4], font=("Helvetica", "12"), bg='#f1b9b9', value=4, variable=self.varl1, padx=10, pady=10)
     self.rb4.grid(row=4)
     #confirm answer button
-    self.confirm_button = Button(self.quiz_frame, text="Confirm", bg="#f1b9b9")
-    self.confirm_button.grid(row=9)
+    self.confirm_button = Button(self.quiz_frame, text="Confirm", bg="#f1b9b9", command=self.name_collection)
+    self.confirm_button.grid(row=5)
     
 
 #Entry
