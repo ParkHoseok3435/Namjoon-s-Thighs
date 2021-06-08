@@ -7,18 +7,17 @@ names_list = []
 asked =[]
 score =0
 questions_answers = { 
-  1: ["Can you feel the love tonight?", 
-  'yes', 'nah', 'fellings','yoyoyoy',
-   1],
-  2: ["What do you think is creating climate change?", 
-  'My interent use', 'Over-production of greenhouse gases', 
-  'boiling the kettle', 'Cooking',
+  1: ["What is an effect of climate change?", 
+  'A. yes', 'B. Increased Heat', 'C. change in climate patterns','D. World domination',
    2],
-  3:["Should I get a tattoo?", 
-  'Yeat', 'NOPE','jill', 'hill',
-     1],
-  4:["How are you?",
-  'fine','tight','hippy', 'liking',
+  2: ["What do you think is creating climate change?", 
+  'A. My interent use', 'B. Over-production of greenhouse gases','C. Melting Ice bergs','D. Cooking onions',
+   2],
+  3:["What is the ozone layer?", 
+  'A. a blanket for the world', 'B. NOPE','C. The layer that protects the world', 'D. melted ice bergs',
+   1],
+  4:["How do you think we can prevent this from continuing?",
+  'A. Staying home','B. Not using a private vehicle','C. making popcorn', 'D. cooking rice',
    1],
 }
 
@@ -81,29 +80,31 @@ class Quiz:
     #randomiser will randomly pick a question number which is qnum
     randomiser()
      #label widget for our heading
-    self.question_label = Label(self.quiz_frame, text = questions_answers[qnum][0], font=("Helvetica", "12"), bg="#f1b9b9")
+    self.question_label = Label(self.quiz_frame, text = questions_answers[qnum][0], font=("Helvetica", "12"), bg="#f1b9b9",padx=10,pady=10)
     self.question_label.grid(row=0)
 
     #holds the value of the radio buttons
     self.varl1=IntVar()
 
     #radio button 1
-    self.rb1 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][1], font=("Helvetica", "12"), bg='#f1b9b9', value=1, variable=self.varl1, padx=10,pady=10)
-    self.rb1.grid(row=1)
+    self.rb1 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][1], font=("Helvetica", "12"), bg='#f1b9b9', value=1, variable=self.varl1, padx=5,pady=5)
+    self.rb1.grid(row=2)
 
     #radio button 2
-    self.rb2 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][2], font=("Helvetica", "12"), bg='#f1b9b9', value=2, variable=self.varl1, padx=10, pady=10)
-    self.rb2.grid(row=2)
+    self.rb2 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][2], font=("Helvetica", "12"), bg='#f1b9b9', value=2, variable=self.varl1, padx=5, pady=5)
+    self.rb2.grid(row=4)
    
-    self.rb3 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][3], font=("Helvetica", "12"), bg='#f1b9b9', value=3, variable=self.varl1, padx=10, pady=10)
-    self.rb3.grid(row=3)
+    self.rb3 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][3], font=("Helvetica", "12"), bg='#f1b9b9', value=3, variable=self.varl1, padx=5, pady=5)
+    self.rb3.grid(row=6)
 
-    self.rb4 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][4], font=("Helvetica", "12"), bg='#f1b9b9', value=4, variable=self.varl1, padx=10, pady=10)
-    self.rb4.grid(row=4)
+    self.rb4 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][4], font=("Helvetica", "12"), bg='#f1b9b9', value=4, variable=self.varl1, padx=5, pady=5)
+    self.rb4.grid(row=8)
     #confirm answer button
-    self.confirm_button = Button(self.quiz_frame, text="Confirm", bg="#f1b9b9", command=self.name_collection)
-    self.confirm_button.grid(row=5)
-    
+    self.confirm_button = Button(self.quiz_frame, text="Confirm", bg="#f1b9b9")
+    self.confirm_button.grid(row=10)
+  #Editing the question label and radio buttons to show the next questions data
+  def questions_setup(self):
+    randomiser()
 
 #Entry
 if __name__=="__main__":
