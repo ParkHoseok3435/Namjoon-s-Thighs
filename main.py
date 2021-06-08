@@ -4,6 +4,7 @@ from PIL import ImageTk, Image
 
 
 names_list = []
+global questions_answers
 asked =[]
 score =0
 questions_answers = { 
@@ -100,11 +101,51 @@ class Quiz:
     self.rb4 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][4], font=("Helvetica", "12"), bg='#f1b9b9', value=4, variable=self.varl1, padx=5, pady=5)
     self.rb4.grid(row=8)
     #confirm answer button
-    self.confirm_button = Button(self.quiz_frame, text="Confirm", bg="#f1b9b9")
+    self.confirm_button = Button(self.quiz_frame, text="Confirm", bg="#f1b9b9",command=self.test_progress)
     self.confirm_button.grid(row=10)
+    #score label to show score (test result so far)
+    self.score_label=Label(self .quiz_frame, text="SCORE", font=("Helvetica""14"),bg=background_color,)
+    self.score_label.grid(row=12,pady=1)
   #Editing the question label and radio buttons to show the next questions data
   def questions_setup(self):
     randomiser()
+    self.var1.set(0)
+    self.question_label.config(text=questions_answers[qnum][0])
+    self.rb1.config(text=questions_answers[qnum][1])
+    self.rb2.config(text=questions_answers[qnum][2])
+    self.rb3.config(text=questions_answers[qnum][3])
+    self.rb4.config(text=questions_answers[qnum][4])
+  #This is the method that would get invoked with confirm answer button is clicked,to take care of progress
+  def test_progress(self):
+    global score
+    scr_label = self.score_label
+    choice = self.var1.get()
+    if len(asked)>9:#if the question i slast
+      if choice == question_answers[qnum][6]:#if last question is right answer
+        score +=1
+        scr_label.configure(text=score)
+        self.confirm_button.config(text="confirm")
+      else:#if last question is wrong answer
+        score+=0
+        scr_label.configure(text="The correct answer was " + questions_answers[qnum][5])
+        self.confirm_button.config(text="confirm")
+  else: #if its not the last question
+      if choice==0#check if the user has made a choice
+        self.confirm_button.confg(text="Please select an option")
+        choice=self.var1.get()
+      else:#if they ade a choice and its not the last question
+        if choice == questions_answers[qnum][6]:
+          score+=1
+          scr_label.configure(text=score)
+          self.confirm_button(text="confirm" )
+          self.questions_setup()
+        else: #if the choice was wrong
+          score+=0
+          scr_label.configure(text="The correct answer was: " +questions_answers[qnum][5])
+          self.confirm_button.configure(text="confirm")
+          self.questions_setup()
+
+        
 
 #Entry
 if __name__=="__main__":
