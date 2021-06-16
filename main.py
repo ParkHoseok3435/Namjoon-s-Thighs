@@ -171,9 +171,29 @@ class Quiz:
           self.questions_setup()
         else: #if the choice was wrong
           score+=0
-          scr_label.configure(text="The correct answer was: "+questions_answers[qnum][4])
+          scr_label.configure(text="The correct answer was: "+questions_answers[qnum][5])
           self.confirm_button.config(text="confirm")
           self.questions_setup()
+class end:
+  def _init_(self):
+    bg="#f1b9b9"
+    self.end_box= Toplevel(root)#Topleel widgets work as windows that are directly managed by the window manager. 
+    self.end_box.title("End box")
+
+    self.end_frame = Frame (self.end_box, width = 1000, height = 100, bg= "#f1b9b9")
+    self.end_frame.grid()
+
+    end_heading = Label (self.end_frame, text= "Good Job", font=('Helvetica' , 14 ), bg = background, pady = 15)
+    end_heading.grid(row=0)
+
+    exit_button = Button(self.end_frame, text = 'exit', width = 10, bg=background, font=('Helvetica', 14),command=self.close_end)
+    exit_button.grid(row=1, pady=20)
+
+  def close_end(self):
+    self.end_box.destroy()
+    root.withdraw()
+    
+  
 
     
 
