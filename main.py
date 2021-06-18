@@ -25,13 +25,13 @@ questions_answers = {
   'B. NOPE',
   'C. The layer that protects the world', 
   'D. melted ice bergs',
-    1],
-  4:["How do you think we can prevent this from continuing?",
-  'A. Staying home',
-  'B. Not using a private vehicle',
-  'C. making popcorn',
-  'D. cooking rice',
-    2],
+    3],
+  4:["Why should we care about climate change?",
+  'A. its not important',
+  'B. I told you to',
+  'C. For future generations to come',
+  'D. Just cause',
+    3],
   5:["What is the type of gas that is causing climate change?",
    'A. Greenhouse gases',
    'B. Carbon dioxide',
@@ -44,6 +44,32 @@ questions_answers = {
   'C.Factories, power plants..etc',
   'D. oceans waste',
     3],
+  7:["What is climate change directly affecting?",
+  'A. Water levels',
+  'B. gas stations',
+  'C.Donald. J. Trump',
+  'D. You',
+    1],
+  8:["Is the ozone hole causing climate change? ",
+  'A. No',
+  'B. Maybe',
+  'C. very unlikey',
+  'D. yes',
+    4],
+  9:["Is climate change caused by humans?",
+  'A. Yes',
+  'B. No',
+  'C.Maybe',
+  'D. Possibly',
+    1],
+    10:["Does deforestation contribute to climate change?",
+  'A. No, they are seperate',
+  'B. Maybe, they are linked',
+  'C.Yes deforestation contributes in multiple ways',
+  'D. Possibly they are linked , but there is no evidence',
+    3],
+
+
 
 }
 
@@ -150,7 +176,7 @@ class Quiz:
     scr_label = self.score_label
     choice = self.varl1.get()
     if len(asked)>9:#if the question i slast
-      if choice == question_answers[qnum][0]:#if last question is right answer
+      if choice == question_answers[qnum][5]:#if last question is right answer
         score +=1
         scr_label.configure(text=score)
         self.confirm_button.config(text="confirm")
@@ -163,7 +189,7 @@ class Quiz:
       #check if the user has made a choice
         self.confirm_button.config(text="Please select an option")
         choice = self.varl1.get()
-      else:#if they ade a choice and its not the last question
+      else:#if they made a choice and its not the last question
         if choice == questions_answers[qnum][5]:
           score+=1
           scr_label.configure(text=score)
@@ -171,7 +197,7 @@ class Quiz:
           self.questions_setup()
         else: #if the choice was wrong
           score+=0
-          scr_label.configure(text="The correct answer was: "+questions_answers[qnum][5])
+          scr_label.configure(text="The correct answer was " + questions_answers.get([qnum][5]))
           self.confirm_button.config(text="confirm")
           self.questions_setup()
 class end:
@@ -192,13 +218,16 @@ class end:
   def close_end(self):
     self.end_box.destroy()
     root.withdraw()
+
+    self.quit = Button(self.quiz_frame, text='quit', font = ('Helvetica', 14), bg = "#f1b9b9", command = self.endscreen)
+    self.quit.grid(row=7, column =  3, sticky = E, pady= 5, padx = 5)
+
+ 
+  
     
   
 
-    
-
-        
-
+  
 #Entry
 if __name__=="__main__":
     root = Tk() #creating a window
