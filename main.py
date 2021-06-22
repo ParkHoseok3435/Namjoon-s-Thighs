@@ -256,11 +256,11 @@ class End:
   def __init__(self, parent): # this function is called every time the class is being used to create a new object
     background ="#a4c2f4"
     self.end_box = Toplevel(root)
-    self.end_box.title("Sayonara")
+    self.end_box.title("Congratulations, You have completed the quiz")
     self.end_frame = Frame(self.end_box, pady=70, padx=45, bg=background)
     self.end_frame.grid()
   #end heading
-    end_heading = Label (self.end_frame, text='Congratulations, Youve completed the quiz', font=("Helvetica", "14"),bg='#f1b9b9', pady=15)
+    end_heading = Label (self.end_frame, text='I hope you have learnt something,Thanks. Sayonara :)', font=("Helvetica", "14"),bg='#f1b9b9', pady=15)
     end_heading.grid(row=0)
     #exit button to end the quiz
     exit_button = Button (self.end_frame, text='Exit quiz>>', width=10,font=("Helvetica", "14"),bg='#f1b9b9', command=self.close_end, pady=10, padx=10)
