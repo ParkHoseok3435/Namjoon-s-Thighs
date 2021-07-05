@@ -1,16 +1,103 @@
 from tkinter import *
 import random
 from PIL import ImageTk, Image
-global questions_answers
+
+
+
+
+class Quizstarter:
+  def __init__ (self, parent):
+    background_color="#a4c2f4"
+
+    #frame set up
+    self.quiz_frame = Frame( parent, bg = background_color,padx=125,pady=99)
+    self.quiz_frame.grid()
+    
+
+    self.bg_images= Image.open("cookingearth.jpg")#need to use image if need to resize
+    self.bg_image = self.bg_images.resize( (250,177), Image.ANTIALIAS)
+    self.bg_image = ImageTk.PhotoImage(self.bg_image)
+
+    #label for image
+    self.image_label= Label(self.quiz_frame, image=self.bg_image)
+    #self.image_label.grid(row=09, colum=1,) #on the right side
+    self.image_label.place(x=0, y=0, relwidth=1, relheight=1) #make label 1 to fit the parent window always
+    #widgets go below
+    self.heading_label = Label(self.quiz_frame, text="Building Climate Awareness",bg="#f1b9b9")
+    self.heading_label.grid(row=0, padx=20)
+
+    # label to ask for Name
+    self.user_label = Label(self.quiz_frame, text="Enter your first name:", bg="#f1b9b9")
+    self.user_label.grid(row=1, padx=20, pady=10)
+
+    #continue button to continue on to the next component where the questions are asked
+    self.continue_button = Button(self.quiz_frame, text="Continue", font=("Helvetica","12","normal"), bg="#f1b9b9", command=self.contbutton)
+    self.continue_button.grid(row=3, padx=20, pady=10)#plaing of the continue button
+
+    #entry box to enter the Username
+    self.entry_box = Entry(self.quiz_frame)
+    self.entry_box.grid(row=2, padx=20, pady=10)
+
+   
+  #trial and error for the continue button to make sure the user does not leave it empty
+  def contbutton(self):
+    if len(self.entry_box.get()) == 0:
+      self.continue_button.config(text="Please enter a Username", font=("Helvetica","12", "normal"))
+
+    else:#the user can only have 10 values
+      if len(self.entry_box.get()) > 15:
+        self.continue_button.config(text="Username has to be \nunder 15 values", font=("Helvetica","12", "normal"))
+
+      else:#the user can only have 2 values
+        if len(self.entry_box.get()) <= 2:
+          self.continue_button.config(text="Username has to be \n more than 2 values", font=("Helvetica","12", "normal"))
+    
+        else:
+          self.name_collection()#coninuation from the continue button to the next compnent(the questions)
+    
+  def name_collection(self):
+        name = self.entry_box.get()
+        if len(name) >= 3 and len(name) <= 15 and name.isalpha() \
+            == True:
+            names_list.append(name)
+            self.quiz_frame.destroy() # destroying the second component
+            Quiz(root) # after destroying second compnent moving on to the next componet (the quiz questions)
+      
+        elif len(name) == 0:
+          self.continue_button.config(text='Please enter a Username\n', font=("Comic Sans MS", "12", "normal"))    
+        
+        elif len(name) <= 3:
+
+                                      # the user can only have 10 values this will stop the user from contuining
+              self.continue_button.config(text='Username has to be \n more than 2 values\n '
+              , font=("Comic Sans MS", "12", "normal"))
+        elif len(name) >= 15:
+              self.continue_button.config(text='Username cant have\n more that 15 values \n', font=("Comic Sans MS", "12", "normal"))
+        elif name.isalpha() == False:
+              self.continue_button.config(text="Username must be made\n of alphabets\n", font=("Comic Sans MS", "12", "normal"))
 
 
 names_list = []
-global questions_answers
 __placeholder__ = False
 asked =[]
 names=[]
 score =0
-questions_answers = { 
+
+
+def randomiser():
+  global qnum
+  qnum = random.randint(1,10)
+  if qnum not in asked:
+    asked.append(qnum)
+  elif qnum in asked:
+    randomiser()
+
+
+class Quiz:
+  def __init__ (self, parent):
+    background_color="#a4c2f4"
+
+    self.questions_answers = questions_answers = { 
   1: ["What is an effect of climate change?", 
   'A. yes', 
   'B. Increased Heat', 
@@ -83,67 +170,12 @@ questions_answers = {
     3],
 }
 
-def randomiser():
-  global qnum
-  qnum = random.randint(1,10)
-  if qnum not in asked:
-    asked.append(qnum)
-  elif qnum in asked:
-    randomiser()
-
-class Quizstarter:
-  def __init__ (self, parent):
-    background_color="#a4c2f4"
-
-    #frame set up
-    self.quiz_frame = Frame( parent, bg = background_color,padx=125,pady=99)
-    self.quiz_frame.grid()
-    
-
-    self.bg_images= Image.open("cookingearth.jpg")#need to use image if need to resize
-    self.bg_image = self.bg_images.resize( (250,177), Image.ANTIALIAS)
-    self.bg_image = ImageTk.PhotoImage(self.bg_image)
-
-    #label for image
-    self.image_label= Label(self.quiz_frame, image=self.bg_image)
-    #self.image_label.grid(row=09, colum=1,) #on the right side
-    self.image_label.place(x=0, y=0, relwidth=1, relheight=1) #make label 1 to fit the parent window always
-    #widgets go below
-    self.heading_label = Label(self.quiz_frame, text="Building Climate Awareness",bg="#f1b9b9")
-    self.heading_label.grid(row=0, padx=20)
-
-    # label to ask for Name
-    self.user_label = Label(self.quiz_frame, text="Enter your first name:", bg="#f1b9b9")
-    self.user_label.grid(row=1, padx=20, pady=10)
-
-    #entry box
-    self.entry_box = Entry(self.quiz_frame)
-    self.entry_box.grid(row=2, padx=20, pady=10)
-
-    #create a Button
-    self.continue_button = Button(self.quiz_frame, text="Continue", font=("Happy hell", "13", "normal"), bg="#f1b9b9", command=self.name_collection)
-    self.continue_button.grid(row=7, padx=15, pady=15)
-    #Entry
-
-  
-  def name_collection(self):
-    name=self.entry_box.get()
-    global names_list
-    names_list.append(name)
-    print(names_list) #testing
-    self.quiz_frame.destroy()
-    #we destroy starter quiz_frame and open the questions quiz_frame isntead which will be part of the Quiz object
-    Quiz(root)
-
-class Quiz:
-  def __init__ (self, parent):
-    background_color="#a4c2f4"
     #frame set up
     self.quiz_frame = Frame(parent, bg = background_color, padx=100, pady=100)
     self.quiz_frame.grid()
-
-    #randomiser will randomly pick a question number which is qnum
-    randomiser()
+    randomiser()  #randomiser will randomly pick a question number which is qnum
+    
+    
      #label widget for our heading
     self.question_label = Label(self.quiz_frame, text = questions_answers[qnum][0], font=("Helvetica", "12"), bg="#f1b9b9",padx=10,pady=10)
     self.question_label.grid(row=0)
@@ -179,11 +211,11 @@ class Quiz:
   def questions_setup(self):
     randomiser()
     self.varl1.set(0)
-    self.question_label.config(text=questions_answers[qnum][0])
-    self.rb1.config(text=questions_answers[qnum][1])
-    self.rb2.config(text=questions_answers[qnum][2])
-    self.rb3.config(text=questions_answers[qnum][3])
-    self.rb4.config(text=questions_answers[qnum][4])
+    self.question_label.config(text= self.questions_answers[qnum][0])
+    self.rb1.config(text=self.questions_answers[qnum][1])
+    self.rb2.config(text=self.questions_answers[qnum][2])
+    self.rb3.config(text=self.questions_answers[qnum][3])
+    self.rb4.config(text=self.questions_answers[qnum][4])
   
 
 #confirm button for the questions window to be better
@@ -193,7 +225,7 @@ class Quiz:
     choice = self.varl1.get()#get the users choice
 
     if len(asked)>9:#to determine it's the last question to end the quiz after
-      if choice == questions_answers[qnum][6]:#cheking the qnum has the correct answer that is stored in index 6
+      if choice == self.questions_answers[qnum][6]:#cheking the qnum has the correct answer that is stored in index 6
         score+=1#adding a point after each correct answer
         scr_label.configure(text=score)#it will change the score to the new score each time
         self.confirm_button.config(text="confirm")#will change the test on the button to confirm
@@ -201,7 +233,7 @@ class Quiz:
       else:
         print(choice)
         score+=0#score will stay the same if the questions is answered inccorectly
-        scr_label.configure(text="Incorrect the answer was: " + questions_answers[qnum][5])#sayin the incorrect answer the the question that the end user put wrong
+        scr_label.configure(text="Incorrect the answer was: " + self.questions_answers[qnum][5])#sayin the incorrect answer the the question that the end user put wrong
         self.confirm_button.config(text="Confirm")#will change the test on the button to confirm
         self.endScreen()#to open endScreen when quiz is completed
     else:
@@ -209,7 +241,7 @@ class Quiz:
           self.confirm_button.config(text="Pick an option")#then the confirm button will say please try again until the questions is answered and an option is selected
           choice=self.varl1.get()#still get the answer if they chose it
         else:#if choice is correct
-          if choice == questions_answers[qnum][6]:#if the choice is correct
+          if choice == self.questions_answers[qnum][6]:#if the choice is correct
             score+=1
             scr_label.configure(text=score)
             self.confirm_button.config(text="Confirm")
@@ -218,7 +250,7 @@ class Quiz:
           else:#if the choice was incorrect
             print(choice)
             score+=0
-            scr_label.configure(text="Incorrect! The answer was: " + questions_answers[qnum][5])#telling the correct answer
+            scr_label.configure(text="Incorrect! The answer was: " + self.questions_answers[qnum][5])#telling the correct answer
             self.confirm_button.config(text="Confirm")
             self.questions_setup()#moving to the next question
 
@@ -273,7 +305,7 @@ class End:
   def close_end(self):
     exit()
 
-
+#Entry
 if __name__=="__main__":
   root = Tk() #creating a window
   root.title("Building Climate Awareness")
